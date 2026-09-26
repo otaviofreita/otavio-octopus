@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Unity.Cinemachine;
 
-public class GeradorPlayer : MonoBehaviour
+public class PlayerSpawn : MonoBehaviour
 {
     [SerializeField] private PlayerInputManager inputManager;
     [SerializeField] private Transform spawnPointP1;
@@ -25,19 +25,17 @@ public class GeradorPlayer : MonoBehaviour
     {
         if (inputManager == null || inputManager.playerPrefab == null) return;
 
-        // Player 1
         PlayerInput p1 = inputManager.JoinPlayer(
             playerIndex: 0,
             splitScreenIndex: -1,
-            controlScheme: "Keyboard P1",
+            controlScheme: "KeyboardWASD",
             pairWithDevice: Keyboard.current
         );
 
-        // Player 2
         PlayerInput p2 = inputManager.JoinPlayer(
             playerIndex: 1,
             splitScreenIndex: -1,
-            controlScheme: "Keybord P2",
+            controlScheme: "KeyboardSetas",
             pairWithDevice: Keyboard.current
         );
 
@@ -55,7 +53,6 @@ public class GeradorPlayer : MonoBehaviour
             player.transform.rotation = spawn.rotation;
         }
 
-        // Atribui explicitamente o índice do jogador ao coletor
         PlayerMoedaCollector collector = player.GetComponent<PlayerMoedaCollector>();
         if (collector != null)
         {
@@ -93,7 +90,7 @@ public class GeradorPlayer : MonoBehaviour
             Pickup[] estrelas = FindObjectsByType<Pickup>(FindObjectsSortMode.None);
             GameManager.Instance.totalEstrelasNaCena = estrelas.Length;
 
-            Debug.Log($"[SISTEMA] Estrelas encontradas na cena: {estrelas.Length}");
+            Debug.Log($"[VARREDURA_INICIAL] Identificamos um total de {estrelas.Length} estrelas no nivel atual.");
         }
     }
 }

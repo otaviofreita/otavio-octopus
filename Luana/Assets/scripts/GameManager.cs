@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     public int totalEstrelasNaCena = 10;
     public int estrelasColetadasTotal = 0;
 
-    private UIManager uiManager;
+    private UiController uiManager;
 
     private void Awake()
     {
@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
         AdicionarPontuacaoEstrela(playerIndex);
     }
 
-    public void RegistrarUI(UIManager ui)
+    public void RegistrarUI(UiController ui)
     {
         uiManager = ui;
 
@@ -102,11 +102,11 @@ public class GameManager : MonoBehaviour
             p2Score++;
         }
 
-        Debug.Log($"[ESTRELA] P{playerIndex + 1} coletou! Placar - P1: {p1Score} | P2: {p2Score} | Total: {estrelasColetadasTotal}/{totalEstrelasNaCena}");
+        Debug.Log($"[AVISO_ESTRELA] Jogador {playerIndex + 1} capturou a estrela! Placar Atualizado -> P1: {p1Score} | P2: {p2Score} | Progresso: {estrelasColetadasTotal}/{totalEstrelasNaCena}");
 
         if (estrelasColetadasTotal >= totalEstrelasNaCena && totalEstrelasNaCena > 0)
         {
-            Debug.Log("[VITÓRIA] Todas as estrelas coletadas! Exibindo tela de vitória...");
+            Debug.Log("[FIM_DE_JOGO] Todas as estrelas foram pegas. Preparando tela de resultados.");
             ExibirTelaDeVitoria();
         }
     }
@@ -115,7 +115,7 @@ public class GameManager : MonoBehaviour
     {
         if (uiManager == null)
         {
-            uiManager = FindFirstObjectByType<UIManager>();
+            uiManager = FindFirstObjectByType<UiController>();
         }
 
         if (uiManager != null)
@@ -128,11 +128,11 @@ public class GameManager : MonoBehaviour
             if (uiManager.winText != null)
             {
                 if (p1Score > p2Score)
-                    uiManager.winText.text = "PLAYER 1 VENCEU!";
+                    uiManager.winText.text = "vitoria do player 1";
                 else if (p2Score > p1Score)
-                    uiManager.winText.text = "PLAYER 2 VENCEU!";
+                    uiManager.winText.text = "vitoria do player 1";
                 else
-                    uiManager.winText.text = "EMPATE!";
+                    uiManager.winText.text = "empate";
             }
         }
     }

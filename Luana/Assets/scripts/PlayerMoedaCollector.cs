@@ -52,12 +52,10 @@ public class PlayerMoedaCollector : MonoBehaviour
     {
         if (item == null) return;
 
-        // Evita processar a mesma moeda ou estrela duas vezes
         if (objetosProcessados.Contains(item)) return;
 
         ObterPlayerIndex();
 
-        // 1. MOEDA: Velocidade
         if (item.CompareTag("Moeda"))
         {
             objetosProcessados.Add(item);
@@ -68,7 +66,6 @@ public class PlayerMoedaCollector : MonoBehaviour
             
             Destroy(item);
         }
-        // 2. ESTRELA: Vitória
         else
         {
             Pickup pickup = item.GetComponent<Pickup>();
